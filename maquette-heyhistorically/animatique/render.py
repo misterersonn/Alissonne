@@ -1,10 +1,11 @@
 """Animatique de l'épisode pilote « The Army That LOST to Birds… ».
 
 Monte les 8 plans du storyboard (img/p1..p8.jpg) et la miniature en une vidéo
-MP4 : mouvements de caméra, tremblements, flashs, textes, sous-titres de la
-voix off et bruitages synthétisés.
+MP4. Les personnages sont animés en découpage (scenes.py / puppet.py) : têtes,
+bras et corps qui pivotent et rebondissent, poses tenues à 12 i/s, trait qui
+vibre, effets dessinés. Par-dessus : caméra, textes, sous-titres, bruitages.
 
-    pip install pillow numpy imageio-ffmpeg
+    pip install pillow numpy opencv-python-headless imageio-ffmpeg
     python render.py --fonts <dossier contenant luckiest.ttf et figtree.ttf>
 """
 import argparse
@@ -17,6 +18,9 @@ import wave
 import imageio_ffmpeg
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+import scenes
+from puppet import Boil
 
 W, H, FPS = 1280, 720, 30
 SR = 44100
@@ -190,6 +194,11 @@ def build_shots(kit):
     imgs = {n: Image.open(os.path.join(IMG, f"{n}.jpg")).convert("RGB")
             for n in ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "thumb"]}
     card = halftone_card(INK, (52, 44, 68))
+    anim = scenes.build(imgs)
+    boil = Boil(W, H)
+
+    def cam(src, t, *a):
+        return boil(camera(src, *a), t)
 
     def title(t):
         f = card.copy()
@@ -210,12 +219,12 @@ def build_shots(kit):
         z = lerp(1.05, 1.45, ease_io(t / 5))
         cx = lerp(0.5, 0.26, ease_io(t / 5))
         sx, sy = shake(1, t, 0.004 if t > 3 else 0.0)
-        f = camera(imgs["p1"], cx, 0.5, z, sx, sy)
+        f = cam(anim["p1"](t), t, cx, 0.5, z, sx, sy)
         subtitle(f, kit, "In 1932, the Australian army went to war. And lost. To birds.", t, 0.4, 4.8)
         return f
 
     def s2(t):  # context : slow pan across the farm
-        f = camera(imgs["p2"], lerp(0.3, 0.72, ease_io(t / 5)), 0.52, 1.35)
+        f = cam(anim["p2"](t), t, lerp(0.3, 0.72, ease_io(t / 5)), 0.52, 1.35)
         chapter(f, kit, "0:20", "Wheat, Veterans and Bad Economics", t)
         subtitle(f, kit, "These farmers were WW1 veterans. They had survived the Somme.", t, 0.3, 4.8)
         return f
@@ -223,7 +232,7 @@ def build_shots(kit):
     def s3(t):  # the emus : push toward the screaming farmer, CRUNCH
         z = lerp(1.1, 1.6, ease_out(t / 1.2)) if t < 2.2 else lerp(1.6, 1.75, (t - 2.2) / 2.8)
         sx, sy = shake(3, t, 0.012 if 1.0 < t < 1.8 else 0.002)
-        f = camera(imgs["p3"], lerp(0.5, 0.7, ease_io(t / 1.2)), 0.4, z, sx, sy)
+        f = cam(anim["p3"](t), t, lerp(0.5, 0.7, ease_io(t / 1.2)), 0.4, z, sx, sy)
         chapter(f, kit, "1:30", "20,000 Hungry Dinosaurs", t)
         pop_text(f, kit, "*CRUNCH*", 96, (380, 250), t, rot=-8, appear=1.0, dur=1.6)
         subtitle(f, kit, "Twenty thousand emus. Zero manners.", t, 2.2, 4.9)
@@ -231,7 +240,7 @@ def build_shots(kit):
 
     def s4(t):  # the major : punch-in + name card
         z = lerp(1.9, 1.15, back_out(t / 0.5, 1.3))
-        f = camera(imgs["p4"], 0.36, 0.42, z, 0, 0, lerp(-4, 0, ease_out(t / 0.5)))
+        f = cam(anim["p4"](t), t, 0.36, 0.42, z, 0, 0, lerp(-4, 0, ease_out(t / 0.5)))
         if t > 0.45:
             k = ease_out((t - 0.45) / 0.3)
             d = ImageDraw.Draw(f)
@@ -247,9 +256,9 @@ def build_shots(kit):
     def s5(t):  # the battle : heavy shake, muzzle flashes, MISS
         firing = (t % 0.9) < 0.45 and t < 4.2
         sx, sy = shake(5, t, 0.012 if firing else 0.003)
-        f = camera(imgs["p5"], lerp(0.45, 0.55, t / 5.5), 0.5, 1.22, sx, sy)
+        f = cam(anim["p5"](t), t, lerp(0.45, 0.55, t / 5.5), 0.5, 1.22, sx, sy)
         if firing and int(t * FPS) % 3 == 0:
-            f = flash(f, 0, 0, 1, (255, 230, 170))
+            f = Image.blend(f, Image.new("RGB", f.size, (255, 230, 170)), 0.18)
         chapter(f, kit, "4:00", "Operation: Run Away", t)
         pop_text(f, kit, "MISS!", 84, (230, 200), t, rot=-10, appear=0.6, dur=1.0)
         pop_text(f, kit, "MISS!", 84, (1040, 260), t, rot=8, appear=1.5, dur=1.0)
@@ -260,7 +269,7 @@ def build_shots(kit):
     def s6(t):  # the truck : bouncy camera + BONK
         bounce = abs(math.sin(t * 9)) * 0.018
         sx, _ = shake(6, t, 0.004)
-        f = camera(imgs["p6"], lerp(0.42, 0.6, ease_io(t / 5)), 0.5, 1.25, sx, -bounce, math.sin(t * 9) * 1.2)
+        f = cam(anim["p6"](t), t, lerp(0.42, 0.6, ease_io(t / 5)), 0.5, 1.25, sx, -bounce, math.sin(t * 9) * 1.2)
         chapter(f, kit, "7:00", "The Truck Idea (bad idea)", t)
         for i, a in enumerate([0.4, 1.2, 2.0]):
             pop_text(f, kit, "BONK", 70, (200 + i * 170, 150 + (i % 2) * 40), t, rot=(-1) ** i * 9, appear=a, dur=0.6)
@@ -269,7 +278,7 @@ def build_shots(kit):
 
     def s7(t):  # parliament : slow pull-out, colder
         z = lerp(1.6, 1.05, ease_io(t / 5.5))
-        f = camera(imgs["p7"], 0.5, lerp(0.45, 0.5, t / 5.5), z)
+        f = cam(anim["p7"](t), t, 0.5, lerp(0.45, 0.5, t / 5.5), z)
         grey = f.convert("L").convert("RGB")
         f = Image.blend(f, grey, 0.25)
         chapter(f, kit, "9:30", "Parliament Laughs", t)
@@ -278,7 +287,7 @@ def build_shots(kit):
         return f
 
     def s8(t):  # victory : rays + stamp
-        f = camera(imgs["p8"], 0.5, lerp(0.55, 0.38, ease_io(t / 5)), lerp(1.08, 1.35, ease_io(t / 5)))
+        f = cam(anim["p8"](t), t, 0.5, lerp(0.55, 0.38, ease_io(t / 5)), lerp(1.08, 1.35, ease_io(t / 5)))
         rays(f, t, (W // 2, 200), GOLD, alpha=35)
         chapter(f, kit, "11:30", "Did Anyone Win?", t)
         pop_text(f, kit, "EMUS 1 - ARMY 0", 92, (640, 600), t, rot=-3, appear=1.6, color=GOLD)
@@ -404,7 +413,7 @@ def main():
         ff, "-y", "-loglevel", "error",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
         "-i", wav,
-        "-c:v", "libx264", "-preset", "medium", "-crf", "24", "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "27", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", args.out,
     ], stdin=subprocess.PIPE)
 
