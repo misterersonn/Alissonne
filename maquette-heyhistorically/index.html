@@ -45,7 +45,7 @@ section{display:grid;gap:22px}
 .hero h1 span{color:var(--hot);-webkit-text-stroke:0}
 .stamp{display:inline-block;transform:rotate(-2deg);background:var(--ink);color:var(--paper);
   font:400 1rem/1 var(--display);padding:8px 12px 5px;letter-spacing:.04em}
-.hero svg{width:100%;height:auto;filter:drop-shadow(4px 4px 0 var(--hot)) drop-shadow(-3px -2px 0 var(--teal))}
+.hero img{width:100%;height:auto;display:block;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--hot)}
 .facts{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.95rem}
 .facts b{font:400 1.5rem/1 var(--display);display:block;letter-spacing:.02em}
 .note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px}
@@ -84,14 +84,14 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
 /* storyboard */
 .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
 .frame{display:grid;gap:10px;align-content:start}
-.frame svg{width:100%;height:auto;display:block;border:2.5px solid var(--ink);background:#fff}
+.frame img{width:100%;height:auto;display:block;border:2.5px solid var(--ink);background:var(--panel)}
 .frame .cap{display:flex;justify-content:space-between;gap:10px;font:500 .78rem/1.3 var(--mono);color:var(--muted)}
 .frame .cap b{color:var(--hot);font-weight:500}
 .frame p{font-size:.92rem}
 .frame .vo{font-style:italic;color:var(--muted);font-size:.9rem;border-left:3px solid var(--teal);padding-left:10px}
 
 .pack{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
-.thumb svg{width:100%;height:auto;display:block;border:2.5px solid var(--ink)}
+.thumb img{width:100%;height:auto;display:block;border:2.5px solid var(--ink)}
 .kv{display:grid;gap:14px}
 .kv div{display:grid;gap:4px}
 .kv .k{font:500 .72rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
@@ -111,27 +111,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 }
 </style>
 
-<!-- Personnage générique réutilisable (tête-haricot blanche) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="bean" viewBox="0 0 60 110">
-      <path d="M18 58 Q14 96 20 104 L27 104 L30 80 L33 104 L40 104 Q46 96 42 58 Z" fill="var(--c,#6C4A2E)" stroke="#1B1724" stroke-width="3" stroke-linejoin="round"/>
-      <ellipse cx="30" cy="34" rx="25" ry="27" fill="#fff" stroke="#1B1724" stroke-width="3.2"/>
-    </symbol>
-    <symbol id="emu" viewBox="0 0 70 110">
-      <path d="M22 60 Q10 45 22 32 Q40 24 54 36 Q64 50 50 64 Q36 72 22 60Z" fill="#5A4636" stroke="#1B1724" stroke-width="3"/>
-      <path d="M48 38 Q52 18 50 6" fill="none" stroke="#1B1724" stroke-width="7" stroke-linecap="round"/>
-      <path d="M48 38 Q52 18 50 6" fill="none" stroke="#7B8FA6" stroke-width="3.5" stroke-linecap="round"/>
-      <ellipse cx="52" cy="6" rx="7" ry="5.5" fill="#6B5A4A" stroke="#1B1724" stroke-width="2.5"/>
-      <path d="M58 6 L66 8 L58 10Z" fill="#2B2320" stroke="#1B1724" stroke-width="1.5"/>
-      <circle cx="54" cy="5" r="1.8" fill="#E0336B"/>
-      <path d="M30 66 L26 104 M42 66 L46 104" stroke="#1B1724" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M20 104 L30 104 M42 104 L52 104" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/>
-    </symbol>
-    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#1B1724" opacity=".13"/></pattern>
-    <pattern id="dotsW" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#fff" opacity=".18"/></pattern>
-  </defs>
-</svg>
 
 <div class="wrap">
 
@@ -149,18 +128,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div>
     <p class="note">Relevé le 26/09/2026 sur la page publique de la chaîne. YouTube bloque la lecture et les sous-titres sans connexion : l'analyse visuelle repose sur les miniatures, les chapitres, les descriptions et les compteurs de vues, pas sur le visionnage image par image.</p>
   </div>
-  <svg viewBox="0 0 320 240" role="img" aria-label="Deux personnages à tête ronde blanche, l'un en armure, l'autre en toge, qui se disputent">
-    <rect width="320" height="240" fill="#F6E7D4"/>
-    <rect width="320" height="240" fill="url(#dots)"/>
-    <path d="M0 190 H320 V240 H0Z" fill="#D9B98A" stroke="#1B1724" stroke-width="3"/>
-    <g transform="translate(40 70)"><use href="#bean" width="76" height="140" style="--c:#8E2B2B"/></g>
-    <path d="M54 132 H100 L96 158 H58Z" fill="#C9A24A" stroke="#1B1724" stroke-width="3"/>
-    <g transform="translate(40 70) scale(.845)"><path d="M28 30 l8 4 M30 38 l6 -4" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/><path d="M48 30 l8 -4 M50 34 l6 4" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/><path d="M32 58 Q45 48 58 58 Z" fill="#E0336B" stroke="#1B1724" stroke-width="2.5"/></g>
-    <g transform="translate(190 70)"><use href="#bean" width="76" height="140" style="--c:#EDEAE2"/></g>
-    <g transform="translate(190 70) scale(.845)"><ellipse cx="34" cy="38" rx="3.2" ry="4" fill="#1B1724"/><ellipse cx="56" cy="38" rx="3.2" ry="4" fill="#1B1724"/><path d="M36 60 q9 -6 18 0" fill="none" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/><path d="M68 20 q6 10 0 18" fill="none" stroke="#1FA597" stroke-width="3" stroke-linecap="round"/></g>
-    <path d="M142 60 l6 16 l14 -8 l-6 14 l16 4 l-16 6 l8 14 l-14 -6 l-4 16 l-6 -14" fill="#F2702B" stroke="#1B1724" stroke-width="2.5" stroke-linejoin="round"/>
-    <text x="160" y="228" text-anchor="middle" font-family="Luckiest Guy, Impact, sans-serif" font-size="17" fill="#1B1724">"SOURCE ? MON RÊVE."</text>
-  </svg>
+  <img src="img/p3.jpg" alt="Style visé : un fermier à tête blanche hurle de rage pendant qu'un émeu mange son blé" width="1600" height="893" loading="lazy">
 </header>
 
 <!-- STYLE -->
@@ -256,25 +224,14 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <div class="head">
     <span class="eyebrow">05 · Maquette type</span>
     <h2>Épisode pilote : « The Army That LOST to Birds… »</h2>
-    <p>Sujet original, pensé pour la famille « record absurde » : la Grande Guerre des Émeus (Australie occidentale, novembre–décembre 1932). Le major G.P.W. Meredith part avec deux mitrailleuses Lewis et 10 000 cartouches contre des milliers d'émeus qui ravagent les cultures, et l'opération tourne au fiasco. Durée cible 13–15 min, 8 plans-clés ci-dessous.</p>
+    <p>Sujet original, pensé pour la famille « record absurde » : la Grande Guerre des Émeus (Australie occidentale, novembre–décembre 1932). Le major G.P.W. Meredith part avec deux mitrailleuses Lewis et 10 000 cartouches contre des milliers d'émeus qui ravagent les cultures, et l'opération tourne au fiasco. Durée cible 13–15 min, 8 plans-clés ci-dessous, rendus dans le style de la chaîne.</p>
   </div>
 
   <div class="board">
 
     <!-- 1 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 1 : un soldat pleure face à une horde d'émeus au coucher du soleil">
-        <rect width="320" height="180" fill="#F2A65A"/><rect width="320" height="90" fill="#F7C873"/>
-        <circle cx="250" cy="70" r="30" fill="#FFE3A3"/>
-        <rect width="320" height="180" fill="url(#dots)"/>
-        <path d="M0 120 Q160 100 320 118 V180 H0Z" fill="#B7743A" stroke="#1B1724" stroke-width="2.5"/>
-        <g opacity=".85"><use href="#emu" x="150" y="58" width="42" height="66"/><use href="#emu" x="185" y="62" width="38" height="60"/><use href="#emu" x="215" y="56" width="44" height="68"/><use href="#emu" x="250" y="64" width="36" height="56"/><use href="#emu" x="275" y="58" width="40" height="64"/></g>
-        <g transform="translate(20 40)"><use href="#bean" width="80" height="146" style="--c:#6E6B3E"/>
-          <path d="M8 18 Q40 -4 72 18 Z" fill="#6E6B3E" stroke="#1B1724" stroke-width="3"/>
-          <path d="M26 34 h10 M46 34 h10" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/>
-          <path d="M30 38 q-2 14 0 22 M52 38 q2 14 0 22" stroke="#6BC6E8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <path d="M30 52 q10 -8 20 0 q-10 6 -20 0Z" fill="#E0336B" stroke="#1B1724" stroke-width="2"/></g>
-      </svg>
+      <img src="img/p1.jpg" alt="Plan 1 : un soldat pleure face à une horde d'émeus au coucher du soleil" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 1 · COLD OPEN</b><span>0:00–0:20</span></div>
       <p>Gros plan d'un soldat en larmes. Travelling arrière : la horde d'émeus au soleil couchant. Musique épique, puis coupure nette.</p>
       <p class="vo">VO : « In 1932, the Australian army went to war. And lost. To birds. »</p>
@@ -282,33 +239,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 2 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 2 : carte de l'Australie occidentale avec un point rouge sur la zone agricole">
-        <rect width="320" height="180" fill="#8FC9D6"/><rect width="320" height="180" fill="url(#dots)"/>
-        <path d="M40 40 L150 30 L175 60 L170 150 L60 160 L30 110Z" fill="#E9C58B" stroke="#1B1724" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M175 60 L270 55 L290 120 L250 160 L170 150Z" fill="#DCB57A" stroke="#1B1724" stroke-width="3" stroke-linejoin="round" stroke-dasharray="6 5"/>
-        <circle cx="75" cy="125" r="9" fill="#E0336B" stroke="#1B1724" stroke-width="2.5"/>
-        <text x="92" y="130" font-family="Luckiest Guy, Impact, sans-serif" font-size="14" fill="#1B1724">CAMPION, W.A.</text>
-        <text x="100" y="85" font-family="Luckiest Guy, Impact, sans-serif" font-size="18" fill="#1B1724">WESTERN AUSTRALIA</text>
-        <g transform="translate(240 10) rotate(8)"><rect width="66" height="40" fill="#fff" stroke="#1B1724" stroke-width="2.5"/><text x="33" y="26" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#1B1724">1932</text></g>
-      </svg>
+      <img src="img/p2.jpg" alt="Plan 2 : trois fermiers vétérans, sûrs d'eux, devant leur ferme et leur champ de blé ; un émeu les observe" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 2 · CONTEXTE</b><span>0:20–1:30</span></div>
-      <p>Carte animée : vétérans de 14-18 installés comme fermiers, crise de 1929, prix du blé en chute. Puis les émeus migrent vers les champs.</p>
+      <p>Présentation des fermiers : vétérans de 14-18 installés dans l'Ouest australien, crise de 1929, prix du blé en chute. Un émeu les observe déjà depuis le blé.</p>
       <p class="vo">VO : « These farmers were WW1 veterans. They had survived the Somme. They would not survive this. »</p>
     </figure>
 
     <!-- 3 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 3 : des émeus mangent le blé pendant qu'un fermier hurle">
-        <rect width="320" height="180" fill="#F9E8A8"/><rect width="320" height="180" fill="url(#dots)"/>
-        <g stroke="#1B1724" stroke-width="2" fill="#E7B53A"><path d="M0 130 H320 V180 H0Z"/></g>
-        <g stroke="#B8862A" stroke-width="3" stroke-linecap="round"><path d="M20 130 v-30 M40 130 v-26 M60 130 v-32 M260 130 v-30 M280 130 v-24 M300 130 v-32"/></g>
-        <use href="#emu" x="120" y="52" width="60" height="94"/><use href="#emu" x="185" y="60" width="54" height="84"/>
-        <g transform="translate(40 50)"><use href="#bean" width="64" height="118" style="--c:#4F6B8C"/>
-          <path d="M18 24 l10 5 M46 24 l-10 5" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/>
-          <ellipse cx="32" cy="46" rx="10" ry="8" fill="#E0336B" stroke="#1B1724" stroke-width="2.5"/>
-          <path d="M50 4 l6 -6 M54 10 l8 -3 M52 16 l9 2" stroke="#E0336B" stroke-width="3" stroke-linecap="round"/></g>
-        <text x="200" y="36" font-family="Luckiest Guy, Impact, sans-serif" font-size="22" fill="#E0336B" stroke="#1B1724" stroke-width="1">*CRUNCH*</text>
-      </svg>
+      <img src="img/p3.jpg" alt="Plan 3 : des émeus mangent le blé pendant qu'un fermier hurle" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 3 · L'INCIDENT</b><span>1:30–2:40</span></div>
       <p>Environ 20 000 émeus arrivent après la saison de reproduction et piétinent les clôtures. Gag : le fermier crie, l'émeu le regarde, continue de manger.</p>
       <p class="vo">VO : « Twenty thousand emus. Zero manners. »</p>
@@ -316,18 +255,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 4 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 4 : un major moustachu salue fièrement à côté d'une mitrailleuse">
-        <rect width="320" height="180" fill="#2A2438"/><rect width="320" height="180" fill="url(#dotsW)"/>
-        <g stroke="#E7B53A" stroke-width="3" opacity=".6"><path d="M160 90 L0 0 M160 90 L320 0 M160 90 L0 180 M160 90 L320 180 M160 90 L0 90 M160 90 L320 90"/></g>
-        <g transform="translate(118 20)"><use href="#bean" width="84" height="154" style="--c:#6E6B3E"/>
-          <path d="M6 18 Q42 -10 78 18 Z" fill="#6E6B3E" stroke="#1B1724" stroke-width="3"/>
-          <ellipse cx="32" cy="34" rx="3.4" ry="4.2" fill="#1B1724"/><ellipse cx="52" cy="34" rx="3.4" ry="4.2" fill="#1B1724"/>
-          <path d="M26 46 q16 -8 32 0 q-16 -2 -32 0Z" fill="#5A3A22" stroke="#1B1724" stroke-width="2"/>
-          <path d="M64 30 l16 -14" stroke="#1B1724" stroke-width="4" stroke-linecap="round"/></g>
-        <g transform="translate(210 118)"><rect width="80" height="14" fill="#3C3C3C" stroke="#1B1724" stroke-width="2.5"/><rect x="10" y="-8" width="26" height="10" fill="#5A5A5A" stroke="#1B1724" stroke-width="2"/><path d="M20 14 l-10 30 M50 14 l10 30" stroke="#1B1724" stroke-width="3"/></g>
-        <rect x="10" y="10" width="126" height="30" fill="#fff" stroke="#1B1724" stroke-width="2.5"/>
-        <text x="73" y="30" text-anchor="middle" font-family="Luckiest Guy, Impact, sans-serif" font-size="14" fill="#1B1724">MAJOR MEREDITH</text>
-      </svg>
+      <img src="img/p4.jpg" alt="Plan 4 : un major moustachu salue fièrement à côté d'une mitrailleuse" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 4 · LE HÉROS</b><span>2:40–4:00</span></div>
       <p>Carte d'entrée façon jeu de combat : Major G.P.W. Meredith, 2 mitrailleuses Lewis, 10 000 cartouches. Chapitre « Major Meredith (very confident guy) ».</p>
       <p class="vo">VO : « He had machine guns. They had… feet. Surely this is fine. »</p>
@@ -335,17 +263,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 5 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 5 : les émeus s'éparpillent dans toutes les directions sous les balles">
-        <rect width="320" height="180" fill="#E8D2A6"/><rect width="320" height="180" fill="url(#dots)"/>
-        <path d="M0 140 H320 V180 H0Z" fill="#C49A5E" stroke="#1B1724" stroke-width="2.5"/>
-        <use href="#emu" x="20" y="60" width="48" height="76" transform="rotate(-8 44 98)"/>
-        <use href="#emu" x="250" y="50" width="52" height="82"/>
-        <use href="#emu" x="140" y="20" width="40" height="64"/>
-        <use href="#emu" x="200" y="90" width="44" height="68"/>
-        <g stroke="#1B1724" stroke-width="2.5" stroke-linecap="round"><path d="M70 110 l-20 4 M72 120 l-22 -2 M300 90 l14 -6 M300 100 l16 0 M180 40 l10 -12 M186 50 l14 -8"/></g>
-        <g fill="#F2702B" stroke="#1B1724" stroke-width="1.5"><circle cx="120" cy="110" r="3"/><circle cx="150" cy="95" r="3"/><circle cx="190" cy="118" r="3"/><circle cx="230" cy="80" r="3"/></g>
-        <text x="96" y="170" font-family="Luckiest Guy, Impact, sans-serif" font-size="20" fill="#1B1724">MISS · MISS · MISS</text>
-      </svg>
+      <img src="img/p5.jpg" alt="Plan 5 : les émeus s'éparpillent dans toutes les directions sous les balles" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 5 · ESCARMOUCHE</b><span>4:00–7:00</span></div>
       <p>Les émeus se dispersent en petits groupes, hors de portée. Le montage accélère, les mêmes « MISS » reviennent en boucle comme gag récurrent.</p>
       <p class="vo">VO : « The emus used an advanced military tactic called: running away in different directions. »</p>
@@ -353,16 +271,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 6 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 6 : un camion bringuebalant avec une mitrailleuse poursuit des émeus">
-        <rect width="320" height="180" fill="#F7C873"/><rect width="320" height="180" fill="url(#dots)"/>
-        <path d="M0 132 Q80 120 160 136 T320 128 V180 H0Z" fill="#B7743A" stroke="#1B1724" stroke-width="2.5"/>
-        <g transform="translate(40 76) rotate(-6)"><rect width="120" height="42" fill="#6E6B3E" stroke="#1B1724" stroke-width="3"/><rect x="84" y="-22" width="36" height="24" fill="#6E6B3E" stroke="#1B1724" stroke-width="3"/>
-          <circle cx="24" cy="46" r="13" fill="#2A2438" stroke="#1B1724" stroke-width="3"/><circle cx="98" cy="46" r="13" fill="#2A2438" stroke="#1B1724" stroke-width="3"/>
-          <rect x="30" y="-10" width="60" height="9" fill="#3C3C3C" stroke="#1B1724" stroke-width="2"/></g>
-        <use href="#emu" x="220" y="54" width="52" height="82"/><use href="#emu" x="262" y="66" width="44" height="70"/>
-        <g stroke="#1B1724" stroke-width="2.5" stroke-linecap="round"><path d="M20 90 h-14 M24 104 h-18 M22 118 h-12"/></g>
-        <text x="16" y="36" font-family="Luckiest Guy, Impact, sans-serif" font-size="18" fill="#E0336B" stroke="#1B1724" stroke-width="1">BONK · BONK · BONK</text>
-      </svg>
+      <img src="img/p6.jpg" alt="Plan 6 : un camion bringuebalant avec une mitrailleuse poursuit des émeus" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 6 · ESCALADE</b><span>7:00–9:30</span></div>
       <p>La mitrailleuse est montée sur un camion : le terrain est si cahoteux qu'on ne peut pas viser, et l'émeu tient la distance. Gag sonore des bosses.</p>
       <p class="vo">VO : « Emus can run at 50 kilometres per hour. The truck could not. »</p>
@@ -370,17 +279,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 7 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 7 : une salle du parlement se moque du ministre">
-        <rect width="320" height="180" fill="#5B2A34"/><rect width="320" height="180" fill="url(#dotsW)"/>
-        <path d="M0 120 H320 V180 H0Z" fill="#3E1C24" stroke="#1B1724" stroke-width="2.5"/>
-        <g><use href="#bean" x="14" y="80" width="46" height="84" style="--c:#2A2438"/><use href="#bean" x="58" y="84" width="46" height="84" style="--c:#2A2438"/><use href="#bean" x="216" y="84" width="46" height="84" style="--c:#2A2438"/><use href="#bean" x="260" y="80" width="46" height="84" style="--c:#2A2438"/></g>
-        <g fill="#1B1724"><path d="M28 104 q9 8 18 0Z M72 108 q9 8 18 0Z M230 108 q9 8 18 0Z M274 104 q9 8 18 0Z"/></g>
-        <g transform="translate(126 40)"><use href="#bean" width="68" height="124" style="--c:#2A2438"/>
-          <path d="M20 30 h8 M40 30 h8" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/>
-          <path d="M22 46 q12 -6 24 0" stroke="#1B1724" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M56 8 q4 6 0 12" stroke="#6BC6E8" stroke-width="3" fill="none" stroke-linecap="round"/></g>
-        <text x="160" y="28" text-anchor="middle" font-family="Luckiest Guy, Impact, sans-serif" font-size="20" fill="#F7C873">"HA HA HA"</text>
-      </svg>
+      <img src="img/p7.jpg" alt="Plan 7 : une salle du parlement se moque du ministre" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 7 · RETOURNEMENT</b><span>9:30–11:30</span></div>
       <p>L'affaire arrive à la Chambre des représentants, la presse s'en moque, l'armée est retirée puis renvoyée. Décor plus sombre, rythme ralenti.</p>
       <p class="vo">VO : « Meredith reported 986 kills for 9 860 rounds. That's ten bullets per bird. »</p>
@@ -388,18 +287,9 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
     <!-- 8 -->
     <figure class="frame" style="margin:0">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Plan 8 : un émeu porte une couronne et une médaille sur un podium">
-        <rect width="320" height="180" fill="#1FA597"/><rect width="320" height="180" fill="url(#dotsW)"/>
-        <g stroke="#FFE3A3" stroke-width="4" opacity=".55"><path d="M160 80 L0 0 M160 80 L320 0 M160 80 L0 180 M160 80 L320 180"/></g>
-        <path d="M110 140 h100 v40 h-100Z" fill="#E7B53A" stroke="#1B1724" stroke-width="3"/>
-        <text x="160" y="168" text-anchor="middle" font-family="Luckiest Guy, Impact, sans-serif" font-size="22" fill="#1B1724">1</text>
-        <use href="#emu" x="118" y="30" width="72" height="112"/>
-        <path d="M152 30 l6 -12 l6 8 l6 -10 l6 10 l6 -8 l2 14Z" fill="#E7B53A" stroke="#1B1724" stroke-width="2.5" transform="translate(-12 -6)"/>
-        <circle cx="152" cy="88" r="8" fill="#E7B53A" stroke="#1B1724" stroke-width="2.5"/>
-        <text x="160" y="24" text-anchor="middle" font-family="Luckiest Guy, Impact, sans-serif" font-size="18" fill="#fff" stroke="#1B1724" stroke-width="1">EMUS 1 – ARMY 0</text>
-      </svg>
+      <img src="img/p8.jpg" alt="Plan 8 : un émeu couronné et médaillé trône sur une pile de casques pendant que les soldats repartent" width="1600" height="893" loading="lazy">
       <div class="cap"><b>PLAN 8 · BILAN + CHUTE</b><span>11:30–fin</span></div>
-      <p>Bilan sincère (primes à l'abattage et clôtures ont fini par marcher), puis podium de l'émeu couronné. Fan-art de la communauté et appel aux membres.</p>
+      <p>Bilan sincère (primes à l'abattage et clôtures ont fini par marcher), puis l'émeu couronné sur la pile de casques pendant que l'armée repart. Fan-art de la communauté et appel aux membres.</p>
       <p class="vo">VO : « So did the army win? … Next question. »</p>
     </figure>
 
@@ -414,24 +304,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
   <div class="pack">
     <div class="thumb">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Maquette de miniature : un soldat en larmes au premier plan, un émeu géant qui charge derrière, fond en feu">
-        <defs><radialGradient id="glow" cx=".7" cy=".4" r=".7"><stop offset="0" stop-color="#FFE3A3"/><stop offset=".5" stop-color="#F2702B"/><stop offset="1" stop-color="#8E1F3A"/></radialGradient></defs>
-        <rect width="320" height="180" fill="url(#glow)"/>
-        <g stroke="#FFE3A3" stroke-width="3" opacity=".45"><path d="M220 70 L0 0 M220 70 L320 0 M220 70 L60 180 M220 70 L320 180 M220 70 L0 120"/></g>
-        <rect width="320" height="180" fill="url(#dots)"/>
-        <g transform="translate(150 6)"><use href="#emu" width="130" height="190" style="filter:drop-shadow(3px 0 0 #1FA597) drop-shadow(-3px 0 0 #E0336B)"/></g>
-        <g transform="translate(6 40)" style="filter:drop-shadow(0 0 0 #fff)">
-          <path d="M6 70 Q0 140 12 150 H110 Q124 140 116 70Z" fill="#6E6B3E" stroke="#fff" stroke-width="7"/>
-          <path d="M6 70 Q0 140 12 150 H110 Q124 140 116 70Z" fill="#6E6B3E" stroke="#1B1724" stroke-width="3"/>
-          <ellipse cx="62" cy="50" rx="52" ry="54" fill="#fff" stroke="#fff" stroke-width="8"/>
-          <ellipse cx="62" cy="50" rx="52" ry="54" fill="#fff" stroke="#1B1724" stroke-width="3.5"/>
-          <path d="M8 26 Q62 -18 118 26 Z" fill="#6E6B3E" stroke="#1B1724" stroke-width="3.5"/>
-          <path d="M34 48 h16 M72 48 h16" stroke="#1B1724" stroke-width="4" stroke-linecap="round"/>
-          <path d="M38 54 q-4 26 0 44 M84 54 q4 26 0 44" stroke="#6BC6E8" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <path d="M42 76 q20 -16 40 0 q-20 12 -40 0Z" fill="#E0336B" stroke="#1B1724" stroke-width="3"/>
-        </g>
-      </svg>
-      <p class="muted" style="margin-top:8px;font-size:.88rem">Règles reprises des miniatures de la chaîne : zéro texte, un visage qui pleure en très gros plan à gauche, la menace à droite, fond en feu, lignes de vitesse, liseré blanc, trame et aberration rouge / cyan.</p>
+      <img src="img/thumb.jpg" alt="Maquette de miniature : un émeu aux yeux rouges à gauche, un soldat en larmes qui lève le pouce à droite, champ en feu" width="1600" height="893" loading="lazy">
+      <p class="muted" style="margin-top:8px;font-size:.88rem">Règles reprises des miniatures de la chaîne : zéro texte, un visage qui pleure en très gros plan, la menace juste à côté, fond en feu, lignes de vitesse, liseré blanc, trame et aberration rouge / cyan.</p>
     </div>
     <div class="kv">
       <div><span class="k">Titre principal</span><h3>The Army That LOST to Birds…</h3></div>
@@ -471,7 +345,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <footer>
   <p>Sources : page publique <a href="https://www.youtube.com/@HeyHistorically/videos">youtube.com/@HeyHistorically</a> (liste des vidéos, durées, bio), pages des vidéos citées (vues, descriptions, chapitres), miniatures officielles. Relevé du 26 septembre 2026.</p>
-  <p>Illustrations de cette page : croquis originaux d'intention, pas des captures de la chaîne.</p>
+  <p>Illustrations de cette page : images générées par IA (Nano Banana Pro via Kling) pour cette maquette, avec deux miniatures de la chaîne comme références de style. Ce ne sont pas des captures de la chaîne ; les scènes et les personnages sont nouveaux.</p>
 </footer>
 
 </div>
