@@ -204,9 +204,10 @@ def chars(shots, name, i):
 def camera(img, z=1.0, sx=0.0, sy=0.0):
     if z == 1.0 and not sx and not sy:
         return img
+    z = max(z, 1.0 + 2.5 * max(abs(sx), abs(sy)) / W)  # un peu de marge pour la secousse
     cw, ch = W / z, H / z
-    x0 = (W - cw) / 2 + sx
-    y0 = (H - ch) / 2 + sy
+    x0 = min(max(0.0, (W - cw) / 2 + sx), W - cw)
+    y0 = min(max(0.0, (H - ch) / 2 + sy), H - ch)
     return img.resize((W, H), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
 
 
