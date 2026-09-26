@@ -6,7 +6,7 @@ ces valeurs dans le temps.
 """
 import math
 
-from toon import (INK, WHITE, capsule, ellipse_path, glove, halftone, ink, rgb,
+from toon import (INK, WHITE, capsule, ellipse_path, fist, glove, halftone, ink, rgb,
                   smooth_path)
 
 SHIRT = rgb("E9D6B4")
@@ -52,11 +52,19 @@ def farmer(c, x, y, p, s=1.0):
         c.rotate(deg(a_fore))
         capsule(c, 0, 0, 0, -140, 58, SHIRT, 8)
         halftone(c, lambda: (c.rectangle(-30, -140, 60, 140)), SHIRT_SH, direction=(side, 0.2), start=0.55, step=8, rmax=3)
-        glove(c, 0, -175, 0, 1.35, p["spread"], 7)
+        hand = p.get("hand_l" if side < 0 else "hand_r", "open")
+        if hand == "open":
+            glove(c, 0, -175, 0, 1.35, p["spread"], 7)
+        else:
+            fist(c, 0, -170, 0, 1.3, 7, point=(hand == "point"))
         c.restore()
 
-    arm(-150, -270, p["arm_l"], p["fore_l"], -1)
-    arm(150, -270, p["arm_r"], p["fore_r"], 1)
+    def arms():
+        arm(-150, -270, p["arm_l"], p["fore_l"], -1)
+        arm(150, -270, p["arm_r"], p["fore_r"], 1)
+
+    if not p.get("arms_front"):
+        arms()
 
     # ---------------------------------------------------------- torse
     shirt = [(-150, -305), (-60, -335), (60, -335), (150, -305), (182, -200), (160, 80), (-160, 80), (-182, -200)]
@@ -90,6 +98,9 @@ def farmer(c, x, y, p, s=1.0):
     for sgn in (-1, 1):
         ellipse_path(c, sgn * 82, -160, 13, 13)
         ink(c, GOLD, 5)
+
+    if p.get("arms_front"):
+        arms()
 
     # ---------------------------------------------------------- tête
     c.save()
@@ -131,8 +142,32 @@ def farmer(c, x, y, p, s=1.0):
         c.set_line_width(5)
         c.stroke()
 
-    # bouche hurlante
-    o = p["mouth"]
+    if p.get("face") == "tight":
+        # joues gonflées et rouges, bouche pincée en zigzag
+        for sgn in (-1, 1):
+            ellipse_path(c, sgn * 118, 40, 46, 30)
+            c.set_source_rgba(*VEIN, 0.45)
+            c.fill()
+        pts = [(-70, 70), (-45, 58), (-20, 74), (5, 58), (30, 74), (55, 58), (75, 70)]
+        c.move_to(*pts[0])
+        for q in pts[1:]:
+            c.line_to(*q)
+        c.set_source_rgb(*INK)
+        c.set_line_width(10)
+        c.stroke()
+        o = None
+    else:
+        o = p["mouth"]
+    if o is not None:
+        _scream_mouth(c, o)
+    v = p["vein"]
+    if v >= 0.05:
+        _vein(c, v)
+    c.restore()  # tête
+    c.restore()
+
+
+def _scream_mouth(c, o):
     mw, mh = 50 + 60 * o, 14 + 166 * o
     mouth_pts = [(-mw * 0.8, 30), (-mw * 0.45, 4), (0, -2), (mw * 0.45, 4), (mw * 0.8, 30),
                  (mw, 18 + mh * 0.75), (mw * 0.55, 18 + mh), (-mw * 0.55, 18 + mh), (-mw, 18 + mh * 0.75)]
@@ -156,8 +191,7 @@ def farmer(c, x, y, p, s=1.0):
     c.set_source_rgb(*INK)
     c.set_line_width(4)
     c.stroke()
-    # dents du bas
-    c.rectangle(-mw * 0.5, 18 + mh - 16, mw, 20)
+    c.rectangle(-mw * 0.5, 18 + mh - 16, mw, 20)  # dents du bas
     c.set_source_rgb(*WHITE)
     c.fill()
     ellipse_path(c, 0, 18 + mh * 0.55, mw * 0.3, mh * 0.18)
@@ -169,15 +203,10 @@ def farmer(c, x, y, p, s=1.0):
     c.set_line_width(10)
     c.stroke()
 
-    # veine de colère
-    v = p["vein"]
+
+def _vein(c, v):
+    """Veine de colère (croix de quatre arcs rouges)."""
     c.save()
-    if v < 0.05:
-        v = 0.0
-        c.restore()
-        c.restore()  # tête
-        c.restore()
-        return
     c.translate(118, -118)
     c.scale(v, v)
     for q in range(4):
@@ -189,9 +218,6 @@ def farmer(c, x, y, p, s=1.0):
         c.set_line_width(9)
         c.stroke()
         c.restore()
-    c.restore()
-
-    c.restore()  # tête
     c.restore()
 
 

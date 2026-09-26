@@ -187,3 +187,34 @@ def glove(c, x, y, angle, size=1.0, spread=1.0, lw=7):
         c.line_to(math.sin(a - 0.2) * 18, -10 - math.cos(a - 0.2) * 18)
         c.stroke()
     c.restore()
+
+
+def fist(c, x, y, angle, size=1.0, lw=7, point=False):
+    """Poing serré (ou index pointé si `point`)."""
+    c.save()
+    c.translate(x, y)
+    c.rotate(angle)
+    c.scale(size, size)
+    if point:
+        capsule(c, 6, -30, 6, -110, 26, WHITE, lw)
+    smooth_path(c, [(-44, -30), (0, -46), (44, -30), (50, 20), (20, 44), (-30, 40), (-52, 10)], True, 0.7)
+    ink(c, WHITE, lw)
+    if point:
+        c.move_to(6, -40)
+        c.line_to(6, -70)
+        c.set_source_rgb(*WHITE)
+        c.set_line_width(24)
+        c.stroke()
+    # phalanges repliées
+    c.set_source_rgb(*INK)
+    c.set_line_width(5)
+    for k in range(3 if point else 4):
+        xx = -30 + k * 20 + (18 if point else 0)
+        c.move_to(xx, -36)
+        c.curve_to(xx + 4, -20, xx + 4, -8, xx, 4)
+        c.stroke()
+    # pouce
+    c.move_to(-50, 2)
+    c.curve_to(-30, 14, -6, 12, 10, 2)
+    c.stroke()
+    c.restore()
