@@ -82,6 +82,10 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
 .beat .tc{font:500 .85rem/1.5 var(--mono);color:var(--hot)}
 
 /* storyboard */
+.anim{margin:0;display:grid;gap:10px}
+.anim video{width:100%;max-width:100%;height:auto;display:block;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--hot);background:#000}
+.anim figcaption{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;color:var(--muted)}
+.anim figcaption b{font:500 .78rem/1.6 var(--mono);color:var(--hot);text-transform:uppercase;letter-spacing:.08em}
 .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
 .frame{display:grid;gap:10px;align-content:start}
 .frame img{width:100%;height:auto;display:block;border:2.5px solid var(--ink);background:var(--panel)}
@@ -226,6 +230,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <h2>Épisode pilote : « The Army That LOST to Birds… »</h2>
     <p>Sujet original, pensé pour la famille « record absurde » : la Grande Guerre des Émeus (Australie occidentale, novembre–décembre 1932). Le major G.P.W. Meredith part avec deux mitrailleuses Lewis et 10 000 cartouches contre des milliers d'émeus qui ravagent les cultures, et l'opération tourne au fiasco. Durée cible 13–15 min, 8 plans-clés ci-dessous, rendus dans le style de la chaîne.</p>
   </div>
+  <figure class="anim">
+    <video src="animatique/animatique.mp4" poster="img/p1.jpg" controls playsinline preload="metadata" width="1280" height="720"></video>
+    <figcaption><b>Animatique · 47 s</b><span>Les 8 plans montés avec mouvements de caméra, tremblements, flashs, textes, sous-titres de la voix off et bruitages. La vraie voix off et la musique viendront au montage final.</span></figcaption>
+  </figure>
 
   <div class="board">
 
